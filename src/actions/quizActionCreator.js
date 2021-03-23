@@ -1,0 +1,29 @@
+import axios from 'axios';
+import QuizModel from '../models/Quiz';
+
+const API_URL = 'https://opentdb.com/api.php?amount=10&type=multiple';
+
+export const FETCH_QUIZZES_REQUEST = 'FETCH_QUIZZES_REQUEST';
+export const FETCH_QUIZZES_SUCCESS = 'FETCH_QUIZZES_SUCCESS';
+export const FETCH_QUIZZES_fAILURE = 'FETCH_QUIZZES_fAILURE';
+
+export const fetchQuizzes = () => {
+    return async (dispatch) => {
+        dispatch( fetchQuizzesRequest() );
+        try {
+            const response = await axios.get(API_URL);
+            console.log(response.data.results, '@@@@@@@@@@');
+            const results = response.data.results;
+            const data = QuizModel.createQuizInstancesWithData(results);
+            dispatch( fetchQuizzesSuccess(data) );
+        }catch(error) {
+            dispatch( fetchQuizzesFailure(error) );
+        }
+    };
+};
+
+// const fetchQuizzesRequest = () => {
+//     return {
+//         type: FETCH_QUIZZES_REQUEST
+//     };
+// };
