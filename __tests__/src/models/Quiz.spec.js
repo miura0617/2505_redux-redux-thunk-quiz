@@ -1,4 +1,4 @@
-import Quiz from '../../../models/Quiz';
+import Quiz from '../../../src/models/Quiz';
 
 
 // クイズのインスタンスを作るときにダミーで用意したもの

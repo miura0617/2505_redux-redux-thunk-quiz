@@ -6,8 +6,8 @@ import {
     FETCH_QUIZZES_SUCCESS,
     FETCH_QUIZZES_fAILURE,
     fetchQuizzes
-} from '../../../actions/quizActionCreator';
-import QuizModel from '../../../models/Quiz';
+} from '../../../src/actions/quizActionCreator';
+import QuizModel from '../../../src/models/Quiz';
 
 
 jest.mock('axios');

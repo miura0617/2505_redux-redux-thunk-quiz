@@ -1,4 +1,4 @@
-import QuizFetcher from '../../../data_fetchers/QuizFetcher';
+import QuizFetcher from '../../../src/data_fetchers/QuizFetcher';
 
 describe('QuizFetcherのテスト', () => {
     it('クラスチェック', () => {
