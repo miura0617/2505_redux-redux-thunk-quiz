@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // action createrも読み込み
 import { fetchQuizzes } from '../../actions/quizActionCreator';
-import QuizModel from '../../models/Quiz';
 import Button from '../Button/Button';
 import './Quiz.css';
 
@@ -14,28 +13,24 @@ class Quiz extends React.Component {
         super(props);
 
         this.state = {
-            quizzes: [],
             currentIndex: 0,
             numberOfCorrects: 0
         };
     }
 
-    async componentDidMount() {
-        await this.restart();
+    componentDidMount() {
+        this.restart();
     }
 
-    async restart() {
+    restart() {
         // stateをリセット
         this.setState({
-            quizzes: [],
             currentIndex: 0,
             numberOfCorrects: 0
         });
 
-        const quizzes = await QuizModel.fetchAndCreateQuizzes();
-        console.log(quizzes, '@@@@@@@@');
-        // setStateでquizzesプロパティに上記quizzes変数を代入
-        this.setState({quizzes});
+        // react-reduxでコンテナ化したので、redux内のstateのquizzesをpropsで受け取ってクイズデータを取得する
+        this.props.fetchQuizzes();
 
     }
 
@@ -59,7 +54,8 @@ class Quiz extends React.Component {
 
 
     render() {
-        const { quizzes, currentIndex } = this.state;
+        const { currentIndex } = this.state;
+        const { quizzes } = this.props.quizInfo;
 
         // 【読込中】quizzesが0個の場合に読込中
         if(quizzes.length === 0) {
@@ -89,7 +85,8 @@ class Quiz extends React.Component {
     }
 
     renderQuiz() {
-        const { currentIndex, quizzes } = this.state;
+        const { currentIndex } = this.state;
+        const { quizzes } = this.props.quizInfo;
 
         const quiz = quizzes[currentIndex];
         // shuffleAnswers()でincorrectAnswerとcorrectAnswerが混じった配列を取得
@@ -119,7 +116,8 @@ class Quiz extends React.Component {
     }
 
     renderResult() {
-        const { quizzes, numberOfCorrects } = this.state;
+        const { numberOfCorrects } = this.state;
+        const { quizzes } = this.props.quizInfo;
 
         return (
             <div>
@@ -150,6 +148,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     fetchQuizzes
 };
+
+// // 以下は、上記と同じ処理になる
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         fetchQuizzes: () => {
+//             dispatch( fetchQuizzes() );
+//         }
+//     };
+// };
+
 
 export default connect(
     mapStateToProps,
