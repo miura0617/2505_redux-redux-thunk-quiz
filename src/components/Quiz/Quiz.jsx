@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+// Quizコンポーネントをreact-reduxを使ってコンテナ化するためconnectを読み込み
+import { connect } from 'react-redux';
+// action createrも読み込み
+import { fetchQuizzes } from '../../actions/quizActionCreator';
 import QuizModel from '../../models/Quiz';
 import Button from '../Button/Button';
 import './Quiz.css';
@@ -136,5 +140,18 @@ class Quiz extends React.Component {
 
 }
 
+// Quizコンポーネントをreact-reduxを使ってコンテナ化するためconnectを読み込み
+const mapStateToProps = (state) => {
+    return {
+        quizInfo: state.quizInfo
+    };
+};
 
-export default Quiz;
+const mapDispatchToProps = {
+    fetchQuizzes
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Quiz);
