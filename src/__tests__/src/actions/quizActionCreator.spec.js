@@ -16,7 +16,7 @@ const middlewarre = [thunk];
 const mockStore = configureMockStore(middlewarre);
 
 describe('quizActionCreatorのテスト', () => {
-    it('fetch成功時、FETCH_QUIZZES_SUCCESSと一緒にクイズデータ', () => {
+    it('fetch成功時、FETCH_QUIZZES_SUCCESSと一緒にクイズデータ', async () => {
         const expectedResults = [
             {
                 question: 'a',
@@ -44,7 +44,7 @@ describe('quizActionCreatorのテスト', () => {
         ]);
     });
 
-    it('fetch失敗時、FETCH_QUIZZES_FAILUREと一緒にエラー情報', () => {
+    it('fetch失敗時、FETCH_QUIZZES_FAILUREと一緒にエラー情報', async () => {
         const expectedError = {
             message: 'ダミーエラーメッセージ'
         };

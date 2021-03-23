@@ -22,8 +22,23 @@ export const fetchQuizzes = () => {
     };
 };
 
-// const fetchQuizzesRequest = () => {
-//     return {
-//         type: FETCH_QUIZZES_REQUEST
-//     };
-// };
+const fetchQuizzesRequest = () => {
+    return {
+        type: FETCH_QUIZZES_REQUEST
+    };
+};
+
+const fetchQuizzesSuccess = (data) => {
+    return {
+        type: FETCH_QUIZZES_SUCCESS,
+        data: data
+    };
+};
+
+const fetchQuizzesFailure = (error) => {
+    return {
+        type: FETCH_QUIZZES_fAILURE,
+        error: error
+    };
+
+};
